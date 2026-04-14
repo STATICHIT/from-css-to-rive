@@ -1,0 +1,82 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #475569;
+}
+
+/* Prism overrides for dark theme */
+pre[class*="language-"],
+code[class*="language-"] {
+  font-family: 'JetBrains Mono', ui-monospace, monospace !important;
+  font-size: 13px !important;
+  line-height: 1.6 !important;
+  background: transparent !important;
+  text-shadow: none !important;
+}
+
+pre[class*="language-"] {
+  margin: 0 !important;
+  padding: 1rem !important;
+  overflow-x: auto;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: #6b7280 !important;
+}
+.token.punctuation {
+  color: #9ca3af !important;
+}
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol {
+  color: #f472b6 !important;
+}
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin {
+  color: #34d399 !important;
+}
+.token.operator,
+.token.entity,
+.token.url {
+  color: #fbbf24 !important;
+}
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+  color: #818cf8 !important;
+}
+.token.function,
+.token.class-name {
+  color: #60a5fa !important;
+}
+.token.regex,
+.token.important,
+.token.variable {
+  color: #fb923c !important;
+}
