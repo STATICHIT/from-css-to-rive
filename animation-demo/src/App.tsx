@@ -100,14 +100,16 @@ function ChapterContent({ chapter }: { chapter: Chapter }) {
         </div>
       </div>
 
-      {/* Code Example */}
-      <div>
-        <h3 className="mb-3 flex items-center gap-2 font-semibold text-white">
-          <span className="font-mono text-xs text-gray-500">{'</'}</span>
-          代码示例
-        </h3>
-        <CodeBlock code={chapter.codeExample} language={chapter.codeLang} />
-      </div>
+      {/* Code Example — skipped when the demo manages its own code (e.g. GSAP) */}
+      {chapter.codeExample && (
+        <div>
+          <h3 className="mb-3 flex items-center gap-2 font-semibold text-white">
+            <span className="font-mono text-xs text-gray-500">{'</'}</span>
+            代码示例
+          </h3>
+          <CodeBlock code={chapter.codeExample} language={chapter.codeLang} />
+        </div>
+      )}
 
       {/* Live Demo */}
       <div>

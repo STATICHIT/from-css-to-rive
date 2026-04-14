@@ -93,27 +93,7 @@ console.log('Animation complete');`,
       pros: ['时间轴嵌套，精准编排', '200+ 缓动函数', 'ScrollTrigger 滚动联动', '跨浏览器像素级一致'],
       cons: ['需引入第三方库 (~30KB)', '学习曲线相对陡峭', '商业项目需注意 License'],
     },
-    codeExample: `import gsap from 'gsap';
-
-// Timeline: 多元素编排
-const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
-
-tl.from('.title', { y: 60, opacity: 0, duration: 0.8 })
-  .from('.subtitle', { y: 40, opacity: 0, duration: 0.6 }, '-=0.4')
-  .from('.card', {
-    y: 80, opacity: 0, stagger: 0.15, duration: 0.7
-  }, '-=0.3');
-
-// ScrollTrigger: 滚动联动
-gsap.to('.progress-bar', {
-  scaleX: 1,
-  scrollTrigger: {
-    trigger: '.section',
-    start: 'top center',
-    end: 'bottom center',
-    scrub: true,
-  }
-});`,
+    codeExample: '',
     codeLang: 'javascript',
   },
   {
