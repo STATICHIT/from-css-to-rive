@@ -1,83 +1,64 @@
-import { useRef, useCallback } from 'react'
+import { useState } from 'react'
+import CodeBlock from './CodeBlock'
+import ParticleDemo, { PARTICLE_CODE } from './waapi/ParticleDemo'
+import ClipPathTrailDemo, { CLIPPATH_CODE } from './waapi/ClipPathTrailDemo'
 
-const COLORS = ['#f472b6', '#818cf8', '#34d399', '#fbbf24', '#60a5fa', '#fb923c', '#a78bfa', '#f87171']
+const TABS = [
+  {
+    id: 'particle',
+    label: '粒子爆炸',
+    code: PARTICLE_CODE,
+    lang: 'javascript',
+    component: ParticleDemo,
+  },
+  {
+    id: 'clippath',
+    label: 'Clip-Path 拖尾',
+    code: CLIPPATH_CODE,
+    lang: 'javascript',
+    component: ClipPathTrailDemo,
+  },
+]
 
 export default function WAAPIDemo() {
-  const containerRef = useRef<HTMLDivElement>(null)
-
-  const spawnParticles = useCallback((e: React.MouseEvent) => {
-    const container = containerRef.current
-    if (!container) return
-
-    const rect = container.getBoundingClientRect()
-    const x = e.clientX - rect.left
-    const y = e.clientY - rect.top
-    const count = 20 + Math.floor(Math.random() * 15)
-
-    for (let i = 0; i < count; i++) {
-      const particle = document.createElement('div')
-      const size = 4 + Math.random() * 8
-      const color = COLORS[Math.floor(Math.random() * COLORS.length)]
-      const angle = (Math.PI * 2 * i) / count + (Math.random() - 0.5) * 0.5
-      const velocity = 60 + Math.random() * 120
-      const dx = Math.cos(angle) * velocity
-      const dy = Math.sin(angle) * velocity
-
-      particle.style.cssText = `
-        position: absolute;
-        left: ${x}px;
-        top: ${y}px;
-        width: ${size}px;
-        height: ${size}px;
-        border-radius: ${Math.random() > 0.3 ? '50%' : '2px'};
-        background: ${color};
-        pointer-events: none;
-        box-shadow: 0 0 6px ${color}80;
-      `
-      container.appendChild(particle)
-
-      const animation = particle.animate(
-        [
-          { transform: 'translate(-50%, -50%) scale(1)', opacity: 1 },
-          { transform: `translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px)) scale(0)`, opacity: 0 },
-        ],
-        {
-          duration: 600 + Math.random() * 500,
-          easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',
-          fill: 'forwards',
-        }
-      )
-
-      animation.onfinish = () => particle.remove()
-    }
-  }, [])
+  const [activeId, setActiveId] = useState('particle')
+  const activeTab = TABS.find((t) => t.id === activeId)!
+  const ActiveDemo = activeTab.component
 
   return (
-    <div className="flex flex-col items-center gap-6">
-      <p className="text-sm text-gray-400">点击下方区域生成粒子爆炸效果</p>
-
-      <div
-        ref={containerRef}
-        onClick={spawnParticles}
-        className="relative h-64 w-full cursor-crosshair overflow-hidden rounded-2xl border border-gray-700 bg-gray-900/80 transition-colors hover:border-indigo-500/40"
-      >
-        <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-          <div className="text-center">
-            <div className="mb-2 text-4xl">💥</div>
-            <span className="font-mono text-xs text-gray-500">Click anywhere</span>
-          </div>
-        </div>
+    <div className="flex flex-col gap-6">
+      {/* Tab 切换器 */}
+      <div className="flex gap-1 self-center rounded-xl border border-gray-700 bg-gray-900/60 p-1">
+        {TABS.map((tab) => (
+          <button
+            key={tab.id}
+            onClick={() => setActiveId(tab.id)}
+            className={`rounded-lg px-4 py-1.5 font-mono text-sm transition-all ${
+              activeId === tab.id
+                ? 'bg-indigo-500/20 text-indigo-400 shadow-sm'
+                : 'text-gray-500 hover:text-gray-300'
+            }`}
+          >
+            {tab.label}
+          </button>
+        ))}
       </div>
 
-      <div className="flex flex-wrap justify-center gap-2">
-        {['Element.animate()', '.finished', 'playbackRate', 'fill: forwards'].map((tag) => (
-          <span
-            key={tag}
-            className="rounded-full border border-gray-700 bg-gray-800/50 px-3 py-1 font-mono text-xs text-indigo-400"
-          >
-            {tag}
-          </span>
-        ))}
+      {/* 当前 Tab 代码示例 */}
+      <div>
+        <div className="mb-3 flex items-center gap-2">
+          <span className="font-mono text-xs text-gray-500">{'</>'}</span>
+          <span className="font-semibold text-white">代码示例</span>
+        </div>
+        <CodeBlock code={activeTab.code} language={activeTab.lang} />
+      </div>
+
+      {/* 当前 Tab 演示 */}
+      <div>
+        <div className="mb-3 font-semibold text-white">🎯 交互演示</div>
+        <div className="rounded-xl border border-gray-700/50 bg-gray-800/20 p-6">
+          <ActiveDemo />
+        </div>
       </div>
     </div>
   )

@@ -56,29 +56,7 @@ export const chapters: Chapter[] = [
       pros: ['原生 API，无需引入第三方库', '与 CSS 动画共享渲染管线', '支持 Promise（animation.finished）'],
       cons: ['时间轴编排能力有限', '复杂交错动画代码量大', '部分高级特性浏览器支持不一'],
     },
-    codeExample: `// 使用 Element.animate() 创建动画
-const el = document.querySelector('.particle');
-
-const animation = el.animate(
-  [
-    { transform: 'translate(0, 0) scale(1)', opacity: 1 },
-    { transform: \`translate(\${x}px, \${y}px) scale(0)\`, opacity: 0 }
-  ],
-  {
-    duration: 800,
-    easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',
-    fill: 'forwards'
-  }
-);
-
-// 播放控制
-animation.pause();
-animation.playbackRate = 2;
-animation.reverse();
-
-// 完成回调
-await animation.finished;
-console.log('Animation complete');`,
+    codeExample: '',
     codeLang: 'javascript',
   },
   {
