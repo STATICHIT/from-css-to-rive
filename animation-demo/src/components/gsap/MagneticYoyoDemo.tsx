@@ -205,6 +205,7 @@ export default function MagneticYoyoDemo() {
           const moveX = mouseX + (dx / dist) * MOUSE_RADIUS
           const moveY = mouseY + (dy / dist) * MOUSE_RADIUS
 
+          // 优化 gsap 性能，避免重复创建时间轴
           if (flower.animater) flower.animater.kill()
           flower.animater = gsap.timeline()
             .to(flower.el,     { attr: { x: moveX, y: moveY }, duration: 0.5, ease: 'power3.out' })

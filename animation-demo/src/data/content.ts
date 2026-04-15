@@ -23,25 +23,7 @@ export const chapters: Chapter[] = [
       pros: ['零 JS 依赖，性能最优', '自动触发 GPU 合成层', '浏览器可优化不可见动画'],
       cons: ['无法精细控制时间轴', '难以实现基于事件的动态编排', '不支持 JS 值插值'],
     },
-    codeExample: `/* Transition: 状态间平滑过渡 */
-.btn {
-  transform: scale(1);
-  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-.btn:hover {
-  transform: scale(1.05);
-}
-
-/* Keyframes: 心跳动画 */
-@keyframes heartbeat {
-  0%, 100% { transform: scale(1); }
-  15% { transform: scale(1.25); }
-  30% { transform: scale(1); }
-  45% { transform: scale(1.15); }
-}
-.heart.active {
-  animation: heartbeat 0.8s ease-in-out;
-}`,
+    codeExample: '',
     codeLang: 'css',
   },
   {
